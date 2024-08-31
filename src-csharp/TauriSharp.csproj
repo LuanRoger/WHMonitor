@@ -10,11 +10,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="..\protos\greet.proto" GrpcServices="Server"/>
+        <Protobuf Include="../protos/hardware.proto" GrpcServices="Server" Link="Protos/hardware.proto" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
+        <PackageReference Include="Grpc.Tools" Version="2.66.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.3" />
     </ItemGroup>
 
 </Project>

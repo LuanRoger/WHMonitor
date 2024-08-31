@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "TauriSharp";
+
+package hardware;
+
+service Hardware {
+  rpc GetStaticHardwareInfo (StaticHardwareRequest) returns (StaticHardwareReply);
+  rpc GetDynamicHardwareInfo (DynamicHardwareRequest) returns (stream DynamicHardwareReply);
+}
+
+message StaticHardwareRequest {
+  bool cpu = 1;
+}
+
+message StaticHardwareReply {
+  optional string cpu = 1;
+}
+
+message DynamicHardwareRequest {
+  bool cpu = 1;
+}
+
+message DynamicHardwareReply {
+  optional float cpuUsage = 1;
+}
