@@ -3,7 +3,7 @@ use std::{error::Error, path::Path};
 fn main() -> Result<(), Box<dyn Error>> {
     tauri_build::build();
 
-    compile_protos(&["../protos/greet.proto"])?;
+    compile_protos(&["../protos/hardware.proto"])?;
 
     Ok(())
 }
