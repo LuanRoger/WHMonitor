@@ -1,4 +1,5 @@
 ﻿using LibreHardwareMonitor.Hardware;
+using TauriSharp.Monitor;
 
 namespace TauriSharp;
 
@@ -10,7 +11,12 @@ public static class Di
         {
             Computer computer = new()
             {
-                IsCpuEnabled = true
+                IsCpuEnabled = true,
+                IsMemoryEnabled = true,
+                IsBatteryEnabled = true,
+                IsNetworkEnabled = true,
+                IsStorageEnabled = true,
+                IsGpuEnabled = true
             };
             computer.Open();
             return computer;

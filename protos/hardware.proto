@@ -11,16 +11,34 @@ service Hardware {
 
 message StaticHardwareRequest {
   bool cpu = 1;
+  bool memory = 2;
+  bool disks = 3;
+  bool graphics = 4;
+  bool network = 5;
 }
 
 message StaticHardwareReply {
   optional string cpu = 1;
+  optional string memory = 2;
+  optional string disks = 3;
+  optional string graphics = 4;
+  optional string network = 5;
 }
 
 message DynamicHardwareRequest {
   bool cpu = 1;
+  bool memory = 2;
+  bool gpu = 3;
+  bool disk = 4;
+  bool network = 5;
+  bool battery = 6;
 }
 
 message DynamicHardwareReply {
   optional float cpuUsage = 1;
+  optional float memoryUsage = 2;
+  optional float gpuUsage = 3;
+  optional float diskUsage = 4;
+  optional float networkUsage = 5;
+  optional float batteryLevel = 6;
 }
