@@ -1,5 +1,5 @@
 import { Cpu } from "lucide-react";
-import CpuUsageChart from "./CpuUsageChart";
+import UsageChart from "./UsageChart";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/card";
 import { HardwareInfo } from "@/lib/types/hardware-info";
 
@@ -25,7 +25,7 @@ export default function CpuUsageCard({ cpuName, hardwareInfo, className }: CpuUs
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <CpuUsageChart
+        <UsageChart
           data={hardwareInfo.map((info) => ({
             timestamp: info.timestamp,
             value: info.info.cpuUsage,

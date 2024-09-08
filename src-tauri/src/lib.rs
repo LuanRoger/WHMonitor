@@ -24,7 +24,15 @@ async fn get_static_hardware_info() -> Result<StaticHardwareInfo, String> {
         Ok(response) => {
             let reply = response.into_inner();
             let cpu_reply = reply.cpu.unwrap_or(String::new());
-            let result = StaticHardwareInfo { cpu: cpu_reply };
+            let memory_reply = reply.memory.unwrap_or(String::new());
+            let network_reply = reply.network.unwrap_or(String::new());
+            let graphics_reply = reply.graphics.unwrap_or(String::new());
+            let result = StaticHardwareInfo {
+                cpu: cpu_reply,
+                memory: memory_reply,
+                network: network_reply,
+                graphics: graphics_reply,
+            };
             Ok(result)
         }
         Err(e) => Err(e.to_string().into()),
@@ -42,7 +50,7 @@ async fn get_dynamic_hardware_info(app: AppHandle) {
         battery: true,
         memory: true,
         network: true,
-        gpu: false,
+        gpu: true,
         disk: false,
     };
     let streaming = client.get_dynamic_hardware_info(request).await.unwrap();
@@ -54,11 +62,13 @@ async fn get_dynamic_hardware_info(app: AppHandle) {
         let battery_level = response.battery_level.unwrap_or(0.0);
         let memory = response.memory_usage.unwrap_or(0.0);
         let network = response.network_usage.unwrap_or(0.0);
+        let gpu = response.gpu_usage.unwrap_or(0.0);
         let data = reponses::DynamicHardwareInfo {
             cpu_usage: cpu,
             battery_level: battery_level,
             memory_usage: memory,
             network: network,
+            gpu_usage: gpu,
         };
 
         app.emit("dynamic-hardware-data", data).unwrap();

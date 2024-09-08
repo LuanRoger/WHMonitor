@@ -1,10 +1,10 @@
-import { toPercent } from "@/lib/utils/math";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "./ui/chart";
+} from "@/components/ui/chart";
+import { toPercent } from "@/lib/utils/math";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
@@ -14,11 +14,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-interface CpuUsageChartProps {
+interface UsageChart {
   data: Array<{ timestamp: number; value: number }>;
 }
 
-export default function MemoryLoadChart({ data }: CpuUsageChartProps) {
+export default function UsageChart({ data }: UsageChart) {
   return (
     <ChartContainer config={chartConfig}>
       <AreaChart accessibilityLayer data={data}>
@@ -29,7 +29,6 @@ export default function MemoryLoadChart({ data }: CpuUsageChartProps) {
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          max={100}
           tickFormatter={(value) => new Date(value).toLocaleTimeString()}
         />
         <YAxis amplitude={100} tickFormatter={toPercent} />

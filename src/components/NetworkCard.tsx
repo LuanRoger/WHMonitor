@@ -1,5 +1,4 @@
-import { Cpu, MemoryStick } from "lucide-react";
-import UsageChart from "./UsageChart";
+import { HardwareInfo } from "@/lib/types/hardware-info";
 import {
   Card,
   CardContent,
@@ -7,32 +6,33 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { HardwareInfo } from "@/lib/types/hardware-info";
+import { MemoryStick, Network } from "lucide-react";
+import UsageChart from "./UsageChart";
 
-interface MemoryLoadCardProps {
-  memoryName: string;
+interface NetworkCardProps {
+  networkName: string;
   hardwareInfo: HardwareInfo[];
   className?: string;
 }
 
-export default function MemoryLoadCard({
-  memoryName,
+export default function NetworkCard({
+  networkName,
   hardwareInfo,
   className,
-}: MemoryLoadCardProps) {
+}: NetworkCardProps) {
   const lastInfo = hardwareInfo[hardwareInfo.length - 1];
 
   return (
     <Card className={className}>
       <CardHeader>
         <CardTitle className="flex flex-row justify-between">
-          <h1>RAM</h1>
-          <MemoryStick />
+          <h1>Network</h1>
+          <Network />
         </CardTitle>
         <CardDescription className="flex flex-row justify-between">
-          {memoryName}
+          {networkName}
           <span className="text-2xl text-foreground font-bold">
-            {lastInfo.info.memoryUsage.toFixed(0)}%
+            {lastInfo.info.network.toFixed(0)}%
           </span>
         </CardDescription>
       </CardHeader>
@@ -40,7 +40,7 @@ export default function MemoryLoadCard({
         <UsageChart
           data={hardwareInfo.map((info) => ({
             timestamp: info.timestamp,
-            value: info.info.memoryUsage,
+            value: info.info.network,
           }))}
         />
       </CardContent>

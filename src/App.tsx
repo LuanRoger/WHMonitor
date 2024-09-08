@@ -8,6 +8,7 @@ import CpuUsageCard from "./components/CpuUsageCard";
 import { invoke } from "@tauri-apps/api/core";
 import BatteryLevel from "./components/BatteryLevel";
 import MemoryLoadCard from "./components/MemoryLoadCard";
+import NetworkCard from "./components/NetworkCard";
 
 function App() {
   const [info, setInfo] = useState<StaticHardwareInfo | undefined>(undefined);
@@ -49,6 +50,10 @@ function App() {
         <MemoryLoadCard
           memoryName={info?.memory ?? "Desconhecido"}
           hardwareInfo={hardwareInfo}
+        />
+        <NetworkCard 
+        networkName={info?.network ?? "Desconhecido"}
+        hardwareInfo={hardwareInfo}
         />
       </div>
     </div>

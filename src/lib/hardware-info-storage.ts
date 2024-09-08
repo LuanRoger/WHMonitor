@@ -17,7 +17,13 @@ export class HardwareInfoStorage {
   constructor(limit: number = 60) {
     this.info = new Array();
     this.info.push({
-      info: { cpuUsage: 0, batteryLevel: 0, memoryUsage: 0 },
+      info: {
+        cpuUsage: 0,
+        batteryLevel: 0,
+        memoryUsage: 0,
+        gpuUsage: 0,
+        network: 0,
+      },
       timestamp: Date.now(),
     });
     this.limit = limit;
