@@ -1,3 +1,4 @@
-export interface DynamicHardwareInfo {
+    export interface DynamicHardwareInfo {
     cpuUsage: number;
+    batteryLevel: number;
 }

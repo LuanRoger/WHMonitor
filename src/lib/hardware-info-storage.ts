@@ -2,7 +2,7 @@ import { DynamicHardwareInfo } from "./types/dynamic-hardware-info";
 import { HardwareInfo } from "./types/hardware-info";
 
 export class HardwareInfoStorage {
-    //TODO: Made this a context
+  //TODO: Made this a context
   private static instance: HardwareInfoStorage | undefined;
   static getInstance(): HardwareInfoStorage {
     if (!HardwareInfoStorage.instance) {
@@ -16,7 +16,10 @@ export class HardwareInfoStorage {
 
   constructor(limit: number = 60) {
     this.info = new Array();
-    this.info.push({ info: { cpuUsage: 12 }, timestamp: Date.now() });
+    this.info.push({
+      info: { cpuUsage: 0, batteryLevel: 0 },
+      timestamp: Date.now(),
+    });
     this.limit = limit;
   }
 

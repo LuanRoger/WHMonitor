@@ -11,7 +11,13 @@ pub mod reponses;
 async fn get_static_hardware_info() -> Result<StaticHardwareInfo, String> {
     let mut client = connect_using!(HardwareClient, None).await.unwrap();
 
-    let request_data = StaticHardwareRequest { cpu: true };
+    let request_data = StaticHardwareRequest {
+        cpu: true,
+        memory: true,
+        network: true,
+        graphics: true,
+        disks: false,
+    };
     let response = client.get_static_hardware_info(request_data).await;
 
     let result = match response {
@@ -31,14 +37,25 @@ async fn get_static_hardware_info() -> Result<StaticHardwareInfo, String> {
 async fn get_dynamic_hardware_info(app: AppHandle) {
     let mut client = connect_using!(HardwareClient, None).await.unwrap();
 
-    let request = DynamicHardwareRequest { cpu: true };
+    let request = DynamicHardwareRequest {
+        cpu: true,
+        battery: true,
+        memory: true,
+        network: true,
+        gpu: false,
+        disk: false,
+    };
     let streaming = client.get_dynamic_hardware_info(request).await.unwrap();
 
     let mut stream = streaming.into_inner();
 
     while let Some(response) = stream.message().await.unwrap() {
         let cpu = response.cpu_usage.unwrap_or(0.0);
-        let data = reponses::DynamicHardwareInfo { cpu_usage: cpu };
+        let battery_level = response.battery_level.unwrap_or(0.0);
+        let data = reponses::DynamicHardwareInfo {
+            cpu_usage: cpu,
+            battery_level: battery_level,
+        };
 
         app.emit("dynamic-hardware-data", data).unwrap();
     }
