@@ -6,8 +6,8 @@ import { DynamicHardwareInfo } from "./lib/types/dynamic-hardware-info";
 import { HardwareInfoStorage } from "./lib/hardware-info-storage";
 import CpuUsageCard from "./components/CpuUsageCard";
 import { invoke } from "@tauri-apps/api/core";
-import { Separator } from "./components/ui/separator";
 import BatteryLevel from "./components/BatteryLevel";
+import MemoryLoadCard from "./components/MemoryLoadCard";
 
 function App() {
   const [info, setInfo] = useState<StaticHardwareInfo | undefined>(undefined);
@@ -28,7 +28,7 @@ function App() {
       );
     }).catch(console.log);
     if (!info) {
-      invoke("get_dynamic_hardware_info")
+      invoke("get_dynamic_hardware_info");
     }
 
     fetchStaticHardwareInfo()
@@ -37,15 +37,20 @@ function App() {
   }, []);
 
   return (
-    <div className="p-2">
+    <div className="flex flex-col gap-4 p-2">
       <div className="flex flex-row-reverse w-full">
         <BatteryLevel level={lastUpdate?.batteryLevel ?? 0} />
       </div>
-      <CpuUsageCard
-        className="w-96"
-        cpuName={info?.cpu ?? "Desconhecido"}
-        hardwareInfo={hardwareInfo}
-      />
+      <div className="grid grid-cols-2 gap-2">
+        <CpuUsageCard
+          cpuName={info?.cpu ?? "Desconhecido"}
+          hardwareInfo={hardwareInfo}
+        />
+        <MemoryLoadCard
+          memoryName={info?.memory ?? "Desconhecido"}
+          hardwareInfo={hardwareInfo}
+        />
+      </div>
     </div>
   );
 }

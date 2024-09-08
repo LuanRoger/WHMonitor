@@ -1,3 +1,4 @@
 export interface StaticHardwareInfo {
-    cpu: string;
+  cpu: string;
+  memory: string;
 }

@@ -52,9 +52,13 @@ async fn get_dynamic_hardware_info(app: AppHandle) {
     while let Some(response) = stream.message().await.unwrap() {
         let cpu = response.cpu_usage.unwrap_or(0.0);
         let battery_level = response.battery_level.unwrap_or(0.0);
+        let memory = response.memory_usage.unwrap_or(0.0);
+        let network = response.network_usage.unwrap_or(0.0);
         let data = reponses::DynamicHardwareInfo {
             cpu_usage: cpu,
             battery_level: battery_level,
+            memory_usage: memory,
+            network: network,
         };
 
         app.emit("dynamic-hardware-data", data).unwrap();

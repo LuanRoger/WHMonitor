@@ -10,4 +10,6 @@ pub struct StaticHardwareInfo {
 pub struct DynamicHardwareInfo {
     pub cpu_usage: f32,
     pub battery_level: f32,
+    pub memory_usage: f32,
+    pub network: f32,
 }
